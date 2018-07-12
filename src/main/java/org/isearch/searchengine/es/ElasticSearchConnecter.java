@@ -1,16 +1,10 @@
 package org.isearch.searchengine.es;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ArrayNode;
-import lombok.Getter;
-import lombok.Setter;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
 import org.elasticsearch.client.Response;
-import org.elasticsearch.client.ResponseListener;
 import org.elasticsearch.client.RestClient;
 import org.isearch.searchengine.es.config.ESConfig;
 import org.isearch.searchengine.model.Product;
@@ -22,6 +16,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ *
+ * TODO: make use of asynchronous api
+ *
+ */
 public class ElasticSearchConnecter {
 
     private final RestClient client;
@@ -34,6 +33,7 @@ public class ElasticSearchConnecter {
     }
 
     public List<Product> search(Map<String, Float> labels) {
+        System.out.println("Labels from AWS Rekognition: " + labels);
         List<Product> products = null;
         try {
             Response response = this.client.performRequest(
@@ -85,18 +85,13 @@ public class ElasticSearchConnecter {
                 labelArray.add(lab.textValue());
             }
         }
-
         return labelArray;
     }
 
     private String buildQuery(Map<String,Float> map) {
         String query = "{\"query\": {\"match\": {\"labels\":\"%s\"}}}";
         StringBuffer labels = new StringBuffer();
-        map.forEach((k, v) -> {
-            if (v > 85F) {
-                labels.append(k).append(" ");
-            }
-        });
+        map.forEach((k, v) -> labels.append(k).append(" "));
         return String.format(query, labels);
     }
 

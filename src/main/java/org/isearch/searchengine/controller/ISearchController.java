@@ -21,7 +21,6 @@ public class ISearchController {
 
     @PostMapping(value = "/search")
     public Mono<ResponseEntity<List<Product>>> search(@RequestParam("image") MultipartFile file) throws Exception {
-        ;
         return Mono.just(new ResponseEntity<>(iSearchService.fetchProducts(file.getBytes()), HttpStatus.ACCEPTED));
     }
 }

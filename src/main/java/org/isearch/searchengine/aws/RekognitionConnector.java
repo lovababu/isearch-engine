@@ -35,15 +35,13 @@ public class RekognitionConnector {
         ByteBuffer byteBuffer = ByteBuffer.wrap(imageBytes);
 
         DetectLabelsRequest detectLabelsRequest = new DetectLabelsRequest();
-        detectLabelsRequest.setMinConfidence(95.5F);
-        detectLabelsRequest.setMaxLabels(3);
+        detectLabelsRequest.setMinConfidence((float) awsConfig.getRekognition().getMinConfidence());
+        detectLabelsRequest.setMaxLabels(awsConfig.getRekognition().getMaxLabels());
         Image image = new Image();
         image.setBytes(byteBuffer);
         detectLabelsRequest.setImage(image);
         DetectLabelsResult detectLabelsResult = amazonRekognition.detectLabels(detectLabelsRequest);
-        detectLabelsResult.getLabels().forEach(l -> {
-            labels.put(l.getName(), l.getConfidence());
-        });
+        detectLabelsResult.getLabels().forEach(l -> labels.put(l.getName(), l.getConfidence()));
         return labels;
     }
 }

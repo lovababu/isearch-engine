@@ -26,12 +26,4 @@ public class ISearchServiceImpl implements ISearchService {
         //use these labels and search in ES engine.
         return elasticSearchConnecter.search(labels);
     }
-
-    private List<Product> dummyFeed() {
-        Product product = Product.builder().name("Apple")
-                .imageUrl("https://tinyurl.com/y7fa5ekc")
-                .labels(Collections.emptyList())
-                .build();
-        return Collections.singletonList(product);
-    }
 }
