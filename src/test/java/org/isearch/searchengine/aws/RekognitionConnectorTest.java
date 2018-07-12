@@ -19,7 +19,7 @@ public class RekognitionConnectorTest {
         //set accesskey and secretkey to awsconfig object.
         RekognitionConnector rekognitionConnector = new RekognitionConnector(awsConfig);
 
-        Map<String, String> labels= rekognitionConnector.findLabels(Files.readAllBytes(Paths.get("/Users/durgapadala/Desktop/grocery1.jpg").toAbsolutePath()));
+        Map<String, Float> labels= rekognitionConnector.findLabels(Files.readAllBytes(Paths.get("/Users/durgapadala/Desktop/grocery1.jpg").toAbsolutePath()));
         System.out.println(labels);
     }
 }

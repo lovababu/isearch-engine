@@ -1,5 +1,6 @@
 package org.isearch.searchengine.controller;
 
+import org.isearch.searchengine.model.Product;
 import org.isearch.searchengine.service.ISearchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,6 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import reactor.core.publisher.Mono;
 
+import java.util.List;
+
 @RestController
 public class ISearchController {
 
@@ -17,8 +20,8 @@ public class ISearchController {
     private ISearchService iSearchService;
 
     @PostMapping(value = "/search")
-    public Mono<ResponseEntity<String>> search(@RequestParam("image") MultipartFile file) throws Exception {
-        iSearchService.fetchProducts(file.getBytes());
-        return Mono.just(new ResponseEntity<>(HttpStatus.ACCEPTED));
+    public Mono<ResponseEntity<List<Product>>> search(@RequestParam("image") MultipartFile file) throws Exception {
+        ;
+        return Mono.just(new ResponseEntity<>(iSearchService.fetchProducts(file.getBytes()), HttpStatus.ACCEPTED));
     }
 }

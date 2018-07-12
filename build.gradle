@@ -32,6 +32,7 @@ dependencies {
 	compile group: 'org.projectlombok', name: 'lombok-maven-plugin', version: '1.18.0.0'
 	compile group: 'ch.qos.logback', name: 'logback-core', version: '1.2.3'
 	compile group: 'com.amazonaws', name: 'aws-java-sdk-rekognition', version: '1.11.365'
+	compile group: 'org.elasticsearch.client', name: 'elasticsearch-rest-client', version: '6.3.1'
 
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 	testCompile('io.projectreactor:reactor-test')
